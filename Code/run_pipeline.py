@@ -9,7 +9,7 @@ Typical full reproduction from a clean checkout (dataset in Dataset/):
     python Code/run_pipeline.py
 
 Fast path when the feature caches already exist (skip feature extraction):
-    python Code/run_pipeline.py --stages probe robust ablation regime logo cv analyze assets benchmark report demo slides
+    python Code/run_pipeline.py --stages probe robust ablation regime logo cv analyze assets benchmark demo
 """
 
 from __future__ import annotations
@@ -29,8 +29,7 @@ VARIANTS = ["clean", "jpeg90", "jpeg50", "resize50", "blur1", "combo"]
 
 STAGES = [
     "audit", "features", "dino", "svm", "resnet", "probe", "robust", "ablation",
-    "regime", "logo", "cv", "examples", "analyze", "assets", "benchmark",
-    "report", "demo", "slides",
+    "regime", "logo", "cv", "examples", "analyze", "assets", "benchmark", "demo",
 ]
 
 
@@ -119,12 +118,8 @@ def build(stage: str) -> list[list[str]]:
         return [script("build_latex_assets.py")]
     if stage == "benchmark":
         return [script("benchmark.py")]
-    if stage == "report":
-        return [script("build_latex_report.py")]
     if stage == "demo":
         return [script("build_demo_page.py")]
-    if stage == "slides":
-        return [script("build_slides.py"), script("build_speaker_scripts.py")]
     raise ValueError(stage)
 
 

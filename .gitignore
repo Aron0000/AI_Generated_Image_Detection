@@ -18,6 +18,12 @@ Official_Source/
 Colab_Notebook/
 00_Project_Guide/
 
+# 报告 / PPT / 讲稿生成脚本（隐私内容，不上传）
+Code/build_latex_report.py
+Code/build_report.py
+Code/build_slides.py
+Code/build_speaker_scripts.py
+
 # 编辑器、工具链与截图产生的本地目录
 .codebuddy/
 .screenshots/

@@ -1,10 +1,6 @@
-# EE5438 Group 20 — AI-Generated Image Detection
+# AI-Generated Image Detection — Code
 
-Code for the final project *Outperforming a Frozen CLIP Detector on Unseen Image
-Generators*. The pipeline trains and evaluates four detectors on the Unbiased
-Tiny GenImage benchmark (23,328 images, seven generators) under two protocols:
-a three-train/four-unseen split (P1) and seven-fold leave-one-generator-out
-(P2). Every number in the report is generated from the JSON files written here.
+Code for the project *Outperforming a Frozen CLIP Detector on Unseen Image Generators*. The pipeline trains and evaluates four detectors on the Unbiased Tiny GenImage benchmark (23,328 images, seven generators) under two protocols: a three-train/four-unseen split (P1) and seven-fold leave-one-generator-out (P2). Every number in the result files is generated here.
 
 ## Repository layout
 
@@ -12,9 +8,8 @@ a three-train/four-unseen split (P1) and seven-fold leave-one-generator-out
 Dataset/                  eight class folders (not distributed with the code)
 Code/                     all Python entry points (this folder)
 Code/src/                 dataset, model, training engine and augmentation helpers
-Results/final_v3/         JSON results and figures consumed by the report
+Results/final_v3/         JSON results and figures
 Results/final_colab/      recorded ResNet-18 run
-Report/                   LaTeX sources, figures, PDF, slides, demo page
 ```
 
 ## Environment
@@ -27,8 +22,7 @@ python -m pip install -r Code/requirements.txt
 ```
 
 `Code/requirements.txt` pins every remaining package (NumPy, SciPy, scikit-learn,
-scikit-image, pandas, matplotlib, Pillow, open_clip_torch, transformers, timm,
-python-pptx).
+scikit-image, pandas, matplotlib, Pillow, open_clip_torch, transformers, timm).
 
 ## Data, splits and caches
 
@@ -61,7 +55,7 @@ skips a completed run unless `--force` is passed, so a partial rerun never
 re-encodes the dataset:
 
 ```bash
-python Code/run_pipeline.py --stages probe robust ablation regime logo cv examples analyze assets benchmark report demo slides
+python Code/run_pipeline.py --stages probe robust ablation regime logo cv analyze assets benchmark demo
 ```
 
 ### Stages
@@ -79,13 +73,11 @@ python Code/run_pipeline.py --stages probe robust ablation regime logo cv exampl
 | `regime` | `probe.py` | `Results/final_v3/single_gen_dual/metrics.json` |
 | `logo` | `probe.py` | `Results/final_v3/logo/<generator>/metrics.json` (7 folds) |
 | `cv` | `cv_select.py` | `Results/final_v3/cv/cv_results.json` |
-| `examples` | `make_example_grid.py` | `Report/latex/figures/dataset_examples.png` |
-| `analyze` | `analyze.py` | `Results/final_v3/summary.json`, manuscript figures |
+| `examples` | `make_example_grid.py` | real-vs-generated example figure |
+| `analyze` | `analyze.py` | `Results/final_v3/summary.json`, evaluation figures |
 | `assets` | `build_latex_assets.py` | `Results/final_v3/latex_assets.json`, diagnostic figures |
 | `benchmark` | `benchmark.py` | `Results/final_v3/efficiency.json` |
-| `report` | `build_latex_report.py` | `Report/latex/technicalReport.tex` |
 | `demo` | `build_demo_page.py` | `Report/demo/index.html` |
-| `slides` | `build_slides.py` + `build_speaker_scripts.py` | `Report/Defense_Slides_EE5438_2026-11-23.pptx` (16 slides, speaker notes) and `Report/scripts/*.docx` (five per-speaker scripts generated from `Report/DEFENSE_SCRIPT.md`) |
 
 ## Running one experiment directly
 
@@ -134,24 +126,12 @@ accuracy at start-up and then classifies uploads through the same path. The
 static page in `Report/demo/index.html` falls back to pre-computed samples and
 labels itself offline when no server is reachable.
 
-## Building the PDF
-
-```bash
-python Code/build_latex_report.py
-cd Report/latex
-latexmk -pdf technicalReport.tex
-```
-
-`latexmk` runs pdfLaTeX and biber until the bibliography settles. The result is
-`Report/latex/technicalReport.pdf`; `Report/Final_Report_EE5438_LaTeX.pdf` is
-the archived submission copy.
-
 ## Determinism
 
 The hash split, split seed 5438, validation-only checkpoint selection and the
 fixed logistic-regression configuration remove manual choices. The feature
 caches are keyed by the manifest, and `probe.py`, `analyze.py` and
-`build_latex_report.py` are deterministic given the cached embeddings. GPU
+`build_latex_assets.py` are deterministic given the cached embeddings. GPU
 training of the ResNet-18 baseline remains subject to standard floating-point
 nondeterminism; the shipped `metrics.json` is the measured run behind the
 submitted numbers.
@@ -160,7 +140,7 @@ submitted numbers.
 
 Exclude `.venv/`, `__pycache__/`, `models_cache/` and the archived duplicate
 `final_metrics_version/` when submitting. The single-generator trainers
-`train.py` and `train_aug.py`, the proposal-stage helpers
-`generate_dataset_figures.py`, `plot_results.py` and `build_report.py` are kept
-for provenance; `src/augmentations.py` supports `train_aug.py`. None of them is
-required by `run_pipeline.py`.
+`train.py` and `train_aug.py`, and the early-stage helpers
+`generate_dataset_figures.py` and `plot_results.py` are kept for provenance;
+`src/augmentations.py` supports `train_aug.py`. None of them is required by
+`run_pipeline.py`.
