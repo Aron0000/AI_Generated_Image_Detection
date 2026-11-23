@@ -1,0 +1,42 @@
+# ============================================================
+# 只推送代码 (Code/) 与根目录 README / .gitignore
+# ============================================================
+
+# 报告文件夹（含个人/答辩隐私材料）
+Report/
+.trae-html-share-packages/
+
+# 数据集与模型权重（大文件）
+Dataset/
+Models/
+
+# 实验产物 / 结果（由脚本重新生成）
+Results/
+
+# 第三方源码、Notebook、交接文档（非代码主体，含本地路径信息）
+Official_Source/
+Colab_Notebook/
+00_Project_Guide/
+
+# 编辑器、工具链与截图产生的本地目录
+.codebuddy/
+.screenshots/
+.slidep/
+.workbuddy/
+
+# 虚拟环境、缓存、编译产物
+.venv/
+Code/.venv/
+Code/models_cache/
+Code/outputs/
+Code/downloads/
+Code/final_metrics_version/
+**/__pycache__/
+*.py[cod]
+*.pth
+*.pt
+*.npz
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
