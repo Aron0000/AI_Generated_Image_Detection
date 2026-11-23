@@ -20,6 +20,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "Dataset"
 OUT = ROOT / "Report" / "figures_final" / "fig_system_architecture_v1.png"
+LATEX_OUT = ROOT / "Report" / "latex" / "figures" / "fig_system_architecture.png"
 
 # ---------------------------------------------------------------- palette
 NAVY = "#0F2A44"
@@ -218,8 +219,10 @@ box(4.82, 3.08, 1.48, 0.32, "JSON \u2192 figures / report / slides", size=4.9, e
 arrow(4.75, 3.24, 4.81, 3.24, color=MUTED)
 ax.text(3.50, 3.52, "python Code/run_pipeline.py", fontsize=5.4, color=NAVY,
         weight="bold", va="top", zorder=5)
-ax.text(3.50, 3.67, "audit \u2192 features \u2192 probe \u2192 robustness / LOGO \u2192 report \u2192 demo \u2192 slides",
-        fontsize=4.6, color=GRAY, va="top", zorder=5)
+ax.text(3.50, 3.66, "audit \u2192 features \u2192 probe \u2192 robust / LOGO \u2192 analyze \u2192 assets \u2192 demo",
+        fontsize=4.4, color=GRAY, va="top", zorder=5)
+ax.text(3.50, 3.78, "report / slides:  build_latex_report.py  \u00b7  build_slides.py",
+        fontsize=4.4, color=GRAY, va="top", zorder=5)
 
 # ================================================================ cross arrows
 arrow(1.20, 2.09, 1.20, 2.25, lw=1.0)
@@ -235,5 +238,8 @@ ax.text(0.10, 4.20, "Schematic shows data flow, not causal architecture. Values 
         "P1, LOGO and robustness results (7-generator mean, as in the robustness table).",
         fontsize=4.7, color=GRAY, va="top", zorder=5)
 
+LATEX_OUT.parent.mkdir(parents=True, exist_ok=True)
 fig.savefig(OUT, dpi=300, facecolor=WHITE)
+fig.savefig(LATEX_OUT, dpi=300, facecolor=WHITE)
 print(f"wrote {OUT}  ({OUT.stat().st_size / 1024:.0f} KB)")
+print(f"wrote {LATEX_OUT}  ({LATEX_OUT.stat().st_size / 1024:.0f} KB)")

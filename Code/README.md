@@ -1,5 +1,7 @@
 # AI-Generated Image Detection — Code
 
+[English](README.md) | [简体中文](README_zh.md)
+
 Code for the project *Outperforming a Frozen CLIP Detector on Unseen Image Generators*. The pipeline trains and evaluates four detectors on the Unbiased Tiny GenImage benchmark (23,328 images, seven generators) under two protocols: a three-train/four-unseen split (P1) and seven-fold leave-one-generator-out (P2). Every number in the result files is generated here.
 
 ## Repository layout

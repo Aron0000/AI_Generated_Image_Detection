@@ -1,5 +1,7 @@
 # AI_Generated_Image_Detection
 
+[English](README.md) | [简体中文](README_zh.md)
+
 A detection framework for AI-generated images that generalizes to **image generators never seen during training**.
 
 The core method, **DELP**, extracts features with frozen CLIP ViT-L/14 and DINOv2 ViT-L/14 encoders, L2-normalizes each block, concatenates them, and fits a logistic-regression probe with only **1,793 parameters**. On the Unbiased Tiny GenImage benchmark (23,328 images across 7 generators), it reaches **95.9%** accuracy on unseen generators, compared with 69.4% for a frozen CLIP detector, 82.8% for ResNet-18, and 94.1% for UnivFD.
